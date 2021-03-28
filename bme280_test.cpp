@@ -6,50 +6,26 @@ int main (void) {
 
   BME280 bme280;
   
-  mode = bme280.getMode();
+  mode = bme280.getMode();  
   ready = bme280.isMeasuring();
-  while (mode == bme280.MODE_NORMAL) {
-    printf("mode: %d! // [3] MODE_NORMAL\n", mode);
-    printf("ready: %s!\n", ready? "true":"false");
+  while (true) {
+    std::cout << "mode:      " << bme280.modeVector[mode] << std::endl;
+    std::cout << "ready:     " << (ready? "true":"false") << std::endl;
 
-    // float tempC;
-    // tempC = bme280.readTempC();
-    // printf("tempC: %f\n", tempC);
+    if (ready == true) {
+      bme280.readAllMeasurements();
+    }
 
-    // float pressure;
-    // pressure = bme280.readFloatPressure();
-    // printf("pressure: %f\n", pressure);
-
-    // float AltMeters;
-    // AltMeters = bme280.readFloatAltitudeMeters(pressure);
-    // printf("AltMeters: %f\n", AltMeters);
-
-    // float AltFeet;
-    // AltFeet = bme280.readFloatAltitudeFeet(pressure);
-    // printf("AltFeet: %f\n", AltFeet);
-
-    // float humidity;
-    // humidity = bme280.readFloatHumidity();
-    // printf("humidity: %f\n", humidity);
-
-    float dewPointC;
-    dewPointC = bme280.dewPointC();
-    printf("dewPointC: %f\n", dewPointC);
-
-    float dewPointF;
-    dewPointF = bme280.dewPointF();
-    printf("dewPointF: %f\n", dewPointF);
-
-    bme280.readAllMeasurements();
-
-    printf("tempC: %f\n", bme280.getTempC());
-    printf("tempF: %f\n", bme280.getTempF());
-    printf("pressure: %f\n", bme280.getPressure());
-    printf("AltMeters: %f\n", bme280.getAltMeters());
-    printf("AltFeet: %f\n", bme280.getAltFeet());
-    printf("humidity: %f\n", bme280.getHumidity());
-
-    printf("\n");
+    std::cout << "tempC:     " << bme280.getTempC() << std::endl;
+    std::cout << "tempF:     " << bme280.getTempF() << std::endl;
+    std::cout << "pressure:  " << bme280.getPressure() << std::endl;
+    std::cout << "AltMeters: " << bme280.getAltMeters() << std::endl;
+    std::cout << "AltFeet:   " << bme280.getAltFeet() << std::endl;
+    std::cout << "humidity:  " << bme280.getHumidity() << std::endl;
+    std::cout << "dewPointC: " << bme280.getDewpointC() << std::endl;
+    std::cout << "dewPointF: " << bme280.getDewpointF() << std::endl;
+    std::cout << std::endl;
+    
     usleep(500000);
   }
   return 0;
